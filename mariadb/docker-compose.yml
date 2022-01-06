@@ -4,19 +4,18 @@ services:
   mariadb_server:
     container_name: mariadb
     image: mariadb:latest
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=password
     networks:
-      - db-network
-    ports:
-      - "3306:3306"
-    restart: always
+      - maria-network
     volumes:
       - db:/var/lib/docker-volumes/mariadb-volumes/
 
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin:latest
+    restart: always
     depends_on:
       - mariadb_server
     environment:
@@ -26,13 +25,12 @@ services:
       - PMA_PASSWORD=password
       - UPLOAD_LIMIT=1G
     networks:
-      - db-network
+      - maria-network
     ports:
-      - "9000:80"
-    restart: always
+      - "4500:80"
 
 networks:
-  db-network:
+  maria-network:
     driver: bridge
 
 volumes:
