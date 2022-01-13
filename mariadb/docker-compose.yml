@@ -9,6 +9,8 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     networks:
       - maria-network
+    ports:
+      - "3306:3306"
     volumes:
       - db:/var/lib/docker-volumes/mariadb-volumes/
 
