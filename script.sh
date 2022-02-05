@@ -6,6 +6,4 @@ sed -i 's/12.20.0/12.14.1/g' package.json
 
 npm install
 
-echo -e "runtime: nodejs\nenv: flex" >> app.yaml
-
 gcloud app deploy
