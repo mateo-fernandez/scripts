@@ -1,23 +1,12 @@
 #!/bin/bash
 
-function error {
-  echo -e "\\e[91m$1\\e[39m"
-  exit 1
-}
+sudo apt-get -y install ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-function check_internet() {
-  printf "Checking if you are online..."
-  wget -q --spider http://github.com
-  if [ $? -eq 0 ]; then
-    echo "Online. Continuing."
-  else
-    error "Offline. Go connect to the internet then run the script again."
-  fi
-}
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-check_internet
-
-curl -sSL https://get.docker.com | sh || error "Failed to install Docker."
-sudo usermod -aG docker $USER || error "Failed to add user to the Docker usergroup."
+sudo groupadd docker
+sudo usermod -aG docker $USER
 echo "Remember to logoff/reboot for the changes to take effect."
 
