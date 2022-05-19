@@ -13,4 +13,3 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plu
 sudo groupadd docker
 sudo usermod -aG docker $USER
 echo "Remember to logoff/reboot for the changes to take effect."
-
